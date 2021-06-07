@@ -5,10 +5,11 @@ echo "Welcome to Employee Wage Computation Program"
 isPartTime=1
 isFullTime=2
 empWagePerHour=20
-empHours=0
+monthlyHours=100
+monthlyWorkingDays=20
 monthlyWage=0
-count=0
-for (( i=0; i<20; i++ ))
+workingHours=0
+for (( i=0; i<$monthlyWorkingDays && $workingHours<$monthlyHours; i++ ))
 do
 	checkemp=$((RANDOM%3))
 	case $checkemp in
@@ -22,12 +23,7 @@ do
 			empHours=0
 			;;
 	esac
-	dailyWage[$i]=$(($empHours*$empWagePerHour))
+	workingHours=$(($workingHours+$empHours))
 done
-echo "Daily Employee Wage : ${dailyWage[@]}"
-for (( i=0; i<20; i++ ))
-do
-	wage=${dailyWage[i]}
-	monthlyWage=$((monthlyWage+wage))
-done
+monthlyWage=$(($workingHours*$empWagePerHour))
 echo " Employee's Monthly Wage is: " $monthlyWage
